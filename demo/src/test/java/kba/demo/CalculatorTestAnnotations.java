@@ -2,25 +2,29 @@ package kba.demo;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-
-class CalculatorTest {
+@ExtendWith(MockitoExtension.class)
+class CalculatorTestAnnotations {
 
     // zu simulierende Mocks
-    private MathService mathService;
-    private CalculatorLogger logger;
+    @Mock
+    MathService mathService;
+
+    @Mock
+    CalculatorLogger logger;
 
     // Die zu testende Klasse, die mit dem Mock arbeitet
-    private Calculator calculator;
+    Calculator calculator;
 
     @BeforeEach
     void setUp() {
-        mathService = mock(MathService.class); // Mock-Erzeugung
-        logger = mock(CalculatorLogger.class);
-        calculator = new Calculator(mathService, logger); // Verwendung des Mocks
+        calculator = new Calculator(mathService, logger);
     }
 
     @Test
