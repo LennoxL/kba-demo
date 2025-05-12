@@ -8,8 +8,14 @@
     <artifactId>demo</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <properties>
+        <maven.compiler.source>24</maven.compiler.source>
+        <maven.compiler.target>24</maven.compiler.target>
+        <enable.preview>true</enable.preview>
+    </properties>
+
     <dependencies>
-        <!-- JUnit 5 (Jupiter) -->
+        <!-- JUnit 5 -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
@@ -25,7 +31,7 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- Mockito + JUnit Jupiter integration -->
+        <!-- Mockito + JUnit 5 Integration -->
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-junit-jupiter</artifactId>
@@ -36,15 +42,24 @@
 
     <build>
         <plugins>
-            <!-- Maven Surefire Plugin für JUnit 5 -->
+            <!-- Aktiviert Java 24 mit Preview-Features beim Kompilieren -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
+                <configuration>
+                    <source>24</source>
+                    <target>24</target>
+                </configuration>
+            </plugin>
+
+            <!-- Aktiviert Preview-Features auch für Tests -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.1.2</version>
                 <configuration>
-                    <includes>
-                        <include>**/*Test.java</include>
-                    </includes>
+                    <argLine>--enable-preview</argLine>
                 </configuration>
             </plugin>
         </plugins>
