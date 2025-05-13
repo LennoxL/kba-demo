@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.example</groupId>
@@ -11,7 +12,6 @@
     <properties>
         <maven.compiler.source>22</maven.compiler.source>
         <maven.compiler.target>22</maven.compiler.target>
-        <enable.preview>true</enable.preview>
     </properties>
 
     <dependencies>
@@ -22,7 +22,6 @@
             <version>5.10.2</version>
             <scope>test</scope>
         </dependency>
-
         <!-- Mockito Core -->
         <dependency>
             <groupId>org.mockito</groupId>
@@ -30,7 +29,6 @@
             <version>5.12.0</version>
             <scope>test</scope>
         </dependency>
-
         <!-- Mockito + JUnit 5 Integration -->
         <dependency>
             <groupId>org.mockito</groupId>
@@ -41,26 +39,28 @@
     </dependencies>
 
     <build>
+        <!-- Haupt-Quellcode statt default src/main/java -->
+        <sourceDirectory>${project.basedir}/demo/src/main/java</sourceDirectory>
+        <!-- 1) Überschreibe das Standard-Testverzeichnis -->
+        <testSourceDirectory>${project.basedir}/demo/src/test/java</testSourceDirectory>
+
         <plugins>
-            <!-- Aktiviert Java 24 mit Preview-Features beim Kompilieren -->
+            <!-- 2) Compiler-Plugin mit Preview-Flag -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.11.0</version>
                 <configuration>
-                    <source>22</source>
-                    <target>22</target>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
                 </configuration>
             </plugin>
 
-            <!-- Aktiviert Preview-Features auch für Tests -->
+            <!-- 3) Surefire-Plugin für Test-Ausführung -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.1.2</version>
-                <configuration>
-                    <argLine>--enable-preview</argLine>
-                </configuration>
             </plugin>
         </plugins>
     </build>
