@@ -1,0 +1,50 @@
+-------------------------------------------------------------------------------
+Test set: kba.demo.CalculatorVerifyTest
+-------------------------------------------------------------------------------
+Tests run: 7, Failures: 3, Errors: 0, Skipped: 0, Time elapsed: 0.553 s <<< FAILURE! -- in kba.demo.CalculatorVerifyTest
+kba.demo.CalculatorVerifyTest.verifyNoMoreInteractionsTest -- Time elapsed: 0.010 s <<< FAILURE!
+org.mockito.exceptions.verification.TooManyActualInvocations: 
+
+mathService.add(3, 7);
+Wanted 1 time:
+-> at kba.demo.CalculatorVerifyTest.verifyNoMoreInteractionsTest(CalculatorVerifyTest.java:84)
+But was 2 times:
+-> at kba.demo.Calculator.calculateSum(Calculator.java:15)
+-> at kba.demo.Calculator.calculateSum(Calculator.java:15)
+
+
+	at kba.demo.CalculatorVerifyTest.verifyNoMoreInteractionsTest(CalculatorVerifyTest.java:84)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+
+kba.demo.CalculatorVerifyTest.verifyOrderTest -- Time elapsed: 0.004 s <<< FAILURE!
+org.mockito.exceptions.verification.VerificationInOrderFailure: 
+
+Verification in order failure
+Wanted but not invoked:
+mathService.add(3, 7);
+-> at kba.demo.CalculatorVerifyTest.verifyOrderTest(CalculatorVerifyTest.java:105)
+Wanted anywhere AFTER following interaction:
+mathService.multiply(4, 5);
+-> at kba.demo.Calculator.calculateProduct(Calculator.java:21)
+
+	at kba.demo.CalculatorVerifyTest.verifyOrderTest(CalculatorVerifyTest.java:105)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+
+kba.demo.CalculatorVerifyTest.verifyAddTimesTest -- Time elapsed: 0.002 s <<< FAILURE!
+org.mockito.exceptions.verification.NeverWantedButInvoked: 
+
+mathService.multiply(4, 5);
+Never wanted here:
+-> at kba.demo.CalculatorVerifyTest.verifyAddTimesTest(CalculatorVerifyTest.java:69)
+But invoked here:
+-> at kba.demo.Calculator.calculateProduct(Calculator.java:21) with arguments: [4, 5]
+
+	at kba.demo.CalculatorVerifyTest.verifyAddTimesTest(CalculatorVerifyTest.java:69)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+

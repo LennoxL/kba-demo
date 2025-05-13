@@ -66,7 +66,7 @@ class CalculatorVerifyTest {
         int result = calculator.calculateProduct(4, 5);
 
         // Verify: mathService.multiply wurde mindestens einmal mit (4,5) aufgerufen
-        verify(mathService, times(1)).multiply(4, 5);
+        verify(mathService, never()).multiply(4, 5);
     }
 
 
@@ -78,6 +78,7 @@ class CalculatorVerifyTest {
 
         // calculateSum aufrufen
         int result = calculator.calculateSum(3, 7);
+        int result2 = calculator.calculateSum(3, 7);
 
         // Verify: mathService.add wurde mit aufgerufen
         verify(mathService).add(3, 7);
@@ -100,8 +101,9 @@ class CalculatorVerifyTest {
 
         // Überprüfe die Reihenfolge
         InOrder inOrder = inOrder(mathService);
-        inOrder.verify(mathService).add(3, 7);
         inOrder.verify(mathService).multiply(4, 5);
+        inOrder.verify(mathService).add(3, 7);
+
     }
 
 
@@ -117,9 +119,10 @@ class CalculatorVerifyTest {
 
         // Überprüfen das 2 beliebige Integer übergeben wurden
         verify(mathService).add(anyInt(), anyInt());
+
     }
 
-    // Test 7: ArgumentCaptor um Werte zu identifiieren
+    // Test 7: ArgumentCaptor um Werte zu identifizieren
     @Captor
     private ArgumentCaptor<Integer> captorA;
     @Captor
@@ -131,9 +134,9 @@ class CalculatorVerifyTest {
         when(mathService.add(3, 7)).thenReturn(10);
 
         // aufrufen von calculateSum
-        int result = calculator.calculateSum(7, 13);
+        int result = calculator.calculateSum(3, 7);
 
-        // Capture: Fange die übergebenen Argumente ab
+        // Übergebene Integer identifizieren
         verify(mathService).add(captorA.capture(), captorB.capture());
 
         System.out.println("captorA: " + captorA.getValue());
